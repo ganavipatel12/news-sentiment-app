@@ -40,3 +40,28 @@ def analyze():
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=7860)
+
+
+@app.route("/tts", methods=["POST"])
+def generate_tts():
+    """
+    API endpoint to generate Hindi Text-to-Speech (TTS) for a given text.
+
+    Request Body (JSON):
+        {
+            "text": "Some text to convert to speech"
+        }
+
+    Returns:
+        JSON response with TTS file path.
+    """
+    data = request.get_json()
+    text = data.get("text", "")
+
+    if not text:
+        return jsonify({"error": "No text provided"}), 400
+
+    filename = "speech_output.mp3"
+    text_to_speech(text, filename)
+
+    return jsonify({"audio_file": filename})

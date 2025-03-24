@@ -200,3 +200,20 @@ if __name__ == "__main__":
 
     result = comparative_analysis(test_articles)
     print(result)
+
+from gtts import gTTS
+
+def text_to_speech(text, filename="output.mp3"):
+    """
+    Converts text into Hindi speech.
+
+    Args:
+        text (str): Input text.
+        filename (str): Output audio filename.
+
+    Returns:
+        str: Filename of generated speech.
+    """
+    tts = gTTS(text=text, lang='hi')
+    tts.save(filename)
+    return filename
